@@ -1760,3 +1760,51 @@ button.news-item{
 .latest-news-panel{
   padding-top:22px;
 }
+
+
+/* Simple organization chart (temporary mode) */
+.simple-org-note{
+  margin:0 0 12px;
+  color:#5f7468;
+  font-size:15px;
+}
+.simple-org-chart{
+  background:#fff;
+  border:1px solid #d7e3dc;
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 8px 24px rgba(36,74,54,.06);
+}
+.simple-org-chart svg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.simple-org-chart .org-node{
+  fill:#ffffff;
+  stroke:#678F74;
+  stroke-width:3;
+  rx:8;
+  ry:8;
+}
+.simple-org-chart .org-text-title{
+  fill:#1f4d3d;
+  font-size:16px;
+  font-weight:700;
+  text-anchor:middle;
+  dominant-baseline:middle;
+}
+.simple-org-chart .org-text-sub{
+  fill:#4c5f55;
+  font-size:13px;
+  text-anchor:middle;
+  dominant-baseline:middle;
+}
+.simple-org-chart .org-line{
+  stroke:#678F74;
+  stroke-width:2;
+}
+@media (max-width: 640px){
+  .simple-org-chart{padding:14px;border-radius:18px;overflow-x:auto;}
+  .simple-org-chart svg{min-width:700px;max-width:none;}
+}
