@@ -1736,3 +1736,27 @@ button.news-item{
     border-radius:14px;
   }
 }
+
+
+/* v89: latest news title outside the card */
+.latest-news-title{
+  margin:0 0 16px;
+}
+.latest-news-title h2{
+  margin:0;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  color:var(--sage-deep);
+}
+.latest-news-title h2::before{
+  content:"";
+  width:28px;
+  height:4px;
+  border-radius:999px;
+  background:#c9a461;
+  flex:0 0 auto;
+}
+.latest-news-panel{
+  padding-top:22px;
+}
