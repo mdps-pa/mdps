@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>網站維護說明</title><link rel="stylesheet" href="style.css?v=88"></head><body><section class="page-hero"><div class="container"><h1>網站維護說明</h1><p>給不熟悉程式語言的家長會維護者使用。</p></div></section><section class="section"><div class="container"><div class="panel"><pre style="white-space:pre-wrap;font-family:inherit;line-height:1.8">明道國小115學年度學生家長會網站｜維護與編輯說明
+
+【最重要】
+您不需要會 C 語言。這個網站主要由 HTML、CSS、JavaScript 組成。日後若只是補文字、名單、PDF、最新消息，通常只需要修改對應的 HTML 檔案或替換 files/、assets/ 裡的檔案。
+
+一、各頁面對應檔案
+index.html：首頁、最新消息、四大入口
+about.html：認識家長會
+organization.html：組織與幹部
+volunteer.html：志工團
+contact.html：我要反映意見（SurveyCake）
+responses.html：反映與回覆紀錄
+faq.html：常見問題
+documents.html：法規章程
+records.html：會議與財務
+
+二、圖片放哪裡
+assets/：Logo、首頁校景、人物照片等
+目前校徽：assets/logo.png
+目前校景：assets/Mingdao Door Clean.png
+
+三、PDF 或公開文件放哪裡
+files/：法規、會議紀錄、預算、決算等 PDF
+若要新增 PDF，先把檔案放進 files/，再在 documents.html 或 records.html 新增連結。
+
+四、最簡單的文字修改方式
+1. 解壓縮網站資料夾。
+2. 用 Windows 記事本、Notepad++ 或 VS Code 開啟對應 .html。
+3. 用 Ctrl+F 搜尋目前畫面上的文字。
+4. 只改標籤中間的中文，不要刪除 &lt; &gt; 內的程式碼。
+例如：
+&lt;h3&gt;志工團招募開始，歡迎加入！&lt;/h3&gt;
+只改成：
+&lt;h3&gt;115學年度交通志工招募&lt;/h3&gt;
+
+五、新增首頁最新消息
+在 index.html 找到 news-item。複製一整行後修改日期、分類、標題即可。
+例如：
+&lt;div class="news-item"&gt;&lt;span class="news-date"&gt;10/15&lt;/span&gt;&lt;span class="tag orange"&gt;公告&lt;/span&gt;&lt;span&gt;新的公告標題&lt;/span&gt;&lt;span&gt;›&lt;/span&gt;&lt;/div&gt;
+
+六、更新幹部名單
+開啟 organization.html，搜尋姓名後直接替換。若要增加一位，複製完整的 &lt;div class="person"&gt;...&lt;/div&gt; 再改姓名與職稱。
+
+七、新增「反映與回覆紀錄」
+開啟 responses.html，找到 &lt;article class="record-card"&gt;。複製一整個 article 區塊，再修改：
+案件編號、狀態、主旨、日期、類別、家長反映摘要、家長會處理與回覆。
+請勿公開學生、家長或教職員可識別的個人資料。
+
+八、新增法規或 PDF
+1. PDF 放入 files/ 資料夾。
+2. 在 documents.html 複製一個 &lt;a href="files/檔名.pdf" target="_blank"&gt;...&lt;/a&gt; 區塊。
+3. 把檔名和顯示名稱改成新的資料。
+
+九、修改 Email、Facebook、SurveyCake
+Email：搜尋 mdps.tp.pa@gmail.com
+Facebook：搜尋 https://www.facebook.com/mdps.tp.pa
+SurveyCake：搜尋 https://www.surveycake.com/s/ypyye
+可使用「全部取代」同步修改全站。
+
+十、如果完全不想碰程式碼
+最簡單的做法是：把新資料、PDF、名單或公告直接傳給 ChatGPT，並說「請更新 MingdaoPA 網站」，再附上上一版 ZIP。我可以直接替您修改並重新打包。
+</pre></div></div></section></body></html>

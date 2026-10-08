@@ -1,0 +1,61 @@
+明道國小115學年度學生家長會網站｜維護與編輯說明
+
+【最重要】
+您不需要會 C 語言。這個網站主要由 HTML、CSS、JavaScript 組成。日後若只是補文字、名單、PDF、最新消息，通常只需要修改對應的 HTML 檔案或替換 files/、assets/ 裡的檔案。
+
+一、各頁面對應檔案
+index.html：首頁、最新消息、四大入口
+about.html：認識家長會
+organization.html：組織與幹部
+volunteer.html：志工團
+contact.html：我要反映意見（SurveyCake）
+responses.html：反映與回覆紀錄
+faq.html：常見問題
+documents.html：法規章程
+records.html：會議與財務
+
+二、圖片放哪裡
+assets/：Logo、首頁校景、人物照片等
+目前校徽：assets/logo.png
+目前校景：assets/Mingdao Door Clean.png
+
+三、PDF 或公開文件放哪裡
+files/：法規、會議紀錄、預算、決算等 PDF
+若要新增 PDF，先把檔案放進 files/，再在 documents.html 或 records.html 新增連結。
+
+四、最簡單的文字修改方式
+1. 解壓縮網站資料夾。
+2. 用 Windows 記事本、Notepad++ 或 VS Code 開啟對應 .html。
+3. 用 Ctrl+F 搜尋目前畫面上的文字。
+4. 只改標籤中間的中文，不要刪除 < > 內的程式碼。
+例如：
+<h3>志工團招募開始，歡迎加入！</h3>
+只改成：
+<h3>115學年度交通志工招募</h3>
+
+五、新增首頁最新消息
+在 index.html 找到 news-item。複製一整行後修改日期、分類、標題即可。
+例如：
+<div class="news-item"><span class="news-date">10/15</span><span class="tag orange">公告</span><span>新的公告標題</span><span>›</span></div>
+
+六、更新幹部名單
+開啟 organization.html，搜尋姓名後直接替換。若要增加一位，複製完整的 <div class="person">...</div> 再改姓名與職稱。
+
+七、新增「反映與回覆紀錄」
+開啟 responses.html，找到 <article class="record-card">。複製一整個 article 區塊，再修改：
+案件編號、狀態、主旨、日期、類別、家長反映摘要、家長會處理與回覆。
+請勿公開學生、家長或教職員可識別的個人資料。
+
+八、新增法規或 PDF
+1. PDF 放入 files/ 資料夾。
+2. 在 documents.html 複製一個 <a href="files/檔名.pdf" target="_blank">...</a> 區塊。
+3. 把檔名和顯示名稱改成新的資料。
+
+九、修改 Email、Facebook、SurveyCake
+Email：搜尋 mdps.tp.pa@gmail.com
+Facebook：搜尋 https://www.facebook.com/mdps.tp.pa
+SurveyCake：搜尋 https://www.surveycake.com/s/ypyye
+可使用「全部取代」同步修改全站。
+
+十、如果完全不想碰程式碼
+最簡單的做法是：把新資料、PDF、名單或公告直接傳給 ChatGPT，並說「請更新 MingdaoPA 網站」，再附上上一版 ZIP。我可以直接替您修改並重新打包。
