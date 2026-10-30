@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" preserveAspectRatio="none">
+  <circle cx="34" cy="128" r="66" fill="#7DBA9E"/>
+  <circle cx="118" cy="108" r="49" fill="#5CA8CF"/>
+  <circle cx="176" cy="126" r="40" fill="#E2A481"/>
+  <!-- footer-color overlays to break the perfect circles into irregular arcs -->
+  <circle cx="18" cy="134" r="26" fill="#4f8579"/>
+  <circle cx="84" cy="132" r="21" fill="#4f8579"/>
+  <circle cx="146" cy="132" r="18" fill="#4f8579"/>
+  <circle cx="202" cy="136" r="18" fill="#4f8579"/>
+  <circle cx="198" cy="104" r="14" fill="#4f8579"/>
+</svg>
