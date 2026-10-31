@@ -2475,3 +2475,19 @@ button.news-item.news-pinned:hover{background:linear-gradient(135deg,#fff3df 0%,
   .copyright-line{display:block;}
   .copyright-line + .copyright-line::before{content:none;}
 }
+
+/* v176 mobile copyright fixed line breaks */
+@media(max-width:768px){
+  .copyright{
+    display:block !important;
+    line-height:1.8;
+  }
+  .copyright-line{
+    display:block !important;
+    width:100%;
+    margin:0;
+  }
+  .copyright-line + .copyright-line::before{
+    content:none !important;
+  }
+}
