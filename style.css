@@ -2439,3 +2439,30 @@ button.news-item.news-pinned:hover{background:linear-gradient(135deg,#fff3df 0%,
     white-space:nowrap;
   }
 }
+
+
+/* v172 global historical visit counter */
+.visit-counter{
+  display:inline-block;
+  min-width:3.5em;
+  font-variant-numeric:tabular-nums;
+  font-weight:700;
+  color:#f4f4ec;
+}
+@media(max-width:620px){
+  .copyright .visit-counter{min-width:3em;}
+}
+
+
+/* v173 footer address/contact */
+.footer-address-block{
+  margin-top:4.8em;
+  color:#dce8e3;
+  font-size:14px;
+  line-height:1.9;
+}
+@media(max-width:620px){
+  .footer-address-block{
+    margin-top:3.6em;
+  }
+}

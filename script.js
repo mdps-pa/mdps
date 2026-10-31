@@ -264,3 +264,63 @@ document.addEventListener("DOMContentLoaded", function () {
     button.textContent = expanded ? "收合最新消息 ↑" : "展開全部最新消息 ↓";
   });
 });
+
+
+// v172 global historical visit counter
+(function () {
+  function setCounterText(value) {
+    document.querySelectorAll('[data-site-visit-counter]').forEach(function (el) {
+      el.textContent = value;
+    });
+  }
+
+  function formatCounter(value) {
+    var n = Number(value);
+    if (!Number.isFinite(n)) return String(value || '—');
+    return n.toLocaleString('zh-TW');
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!document.querySelector('[data-site-visit-counter]')) return;
+
+    var callbackName = '__mdpsSiteVisitCounterCallback';
+    var script = document.createElement('script');
+    var isLiveSite = location.hostname === 'mdps-pa.github.io';
+    var base = 'https://counterapi.com/api/mdps-pa.github.io/view/mdps-pa-total';
+    var params = new URLSearchParams({ callback: callbackName });
+
+    // Local/file previews show the current total without increasing it.
+    if (!isLiveSite) params.set('readOnly', 'true');
+
+    var finished = false;
+    var timer = window.setTimeout(function () {
+      if (finished) return;
+      finished = true;
+      setCounterText('暫時無法讀取');
+    }, 8000);
+
+    window[callbackName] = function (response) {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(timer);
+      if (response && response.value !== undefined) {
+        setCounterText(formatCounter(response.value));
+      } else {
+        setCounterText('暫時無法讀取');
+      }
+      try { delete window[callbackName]; } catch (e) {}
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+
+    script.async = true;
+    script.src = base + '?' + params.toString();
+    script.onerror = function () {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(timer);
+      setCounterText('暫時無法讀取');
+      try { delete window[callbackName]; } catch (e) {}
+    };
+    document.head.appendChild(script);
+  });
+})();
