@@ -2466,3 +2466,12 @@ button.news-item.news-pinned:hover{background:linear-gradient(135deg,#fff3df 0%,
     margin-top:3.6em;
   }
 }
+
+/* v175 copyright line handling */
+.copyright-line{display:inline;}
+.copyright-line + .copyright-line::before{content:"　｜　";}
+@media(max-width:768px){
+  .copyright{display:flex;flex-direction:column;align-items:flex-start;gap:2px;}
+  .copyright-line{display:block;}
+  .copyright-line + .copyright-line::before{content:none;}
+}
