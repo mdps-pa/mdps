@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// v172 global historical visit counter
+// v174 global historical visit counter (Abacus API)
 (function () {
   function setCounterText(value) {
     document.querySelectorAll('[data-site-visit-counter]').forEach(function (el) {
@@ -276,51 +276,70 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function formatCounter(value) {
     var n = Number(value);
-    if (!Number.isFinite(n)) return String(value || '—');
-    return n.toLocaleString('zh-TW');
+    if (!Number.isFinite(n)) return '—';
+    return Math.max(0, n).toLocaleString('zh-TW');
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function readOnlyJsonp(url) {
+    return new Promise(function (resolve, reject) {
+      var callbackName = '__mdpsAbacusCounter_' + Date.now();
+      var script = document.createElement('script');
+      var timer = window.setTimeout(function () {
+        cleanup();
+        reject(new Error('counter timeout'));
+      }, 7000);
+
+      function cleanup() {
+        window.clearTimeout(timer);
+        try { delete window[callbackName]; } catch (e) { window[callbackName] = undefined; }
+        if (script.parentNode) script.parentNode.removeChild(script);
+      }
+
+      window[callbackName] = function (data) {
+        cleanup();
+        resolve(data);
+      };
+
+      script.async = true;
+      script.onerror = function () {
+        cleanup();
+        reject(new Error('counter JSONP failed'));
+      };
+      script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + encodeURIComponent(callbackName);
+      document.head.appendChild(script);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', async function () {
     if (!document.querySelector('[data-site-visit-counter]')) return;
 
-    var callbackName = '__mdpsSiteVisitCounterCallback';
-    var script = document.createElement('script');
+    var namespace = 'mdps-pa-github-io';
+    var key = 'historical-pageviews-v174';
+    var base = 'https://abacus.jasoncameron.dev';
     var isLiveSite = location.hostname === 'mdps-pa.github.io';
-    var base = 'https://counterapi.com/api/mdps-pa.github.io/view/mdps-pa-total';
-    var params = new URLSearchParams({ callback: callbackName });
+    var endpoint = base + (isLiveSite ? '/hit/' : '/get/') + namespace + '/' + key;
 
-    // Local/file previews show the current total without increasing it.
-    if (!isLiveSite) params.set('readOnly', 'true');
-
-    var finished = false;
-    var timer = window.setTimeout(function () {
-      if (finished) return;
-      finished = true;
-      setCounterText('暫時無法讀取');
-    }, 8000);
-
-    window[callbackName] = function (response) {
-      if (finished) return;
-      finished = true;
-      window.clearTimeout(timer);
-      if (response && response.value !== undefined) {
-        setCounterText(formatCounter(response.value));
-      } else {
-        setCounterText('暫時無法讀取');
+    try {
+      var response = await fetch(endpoint, { mode: 'cors', cache: 'no-store' });
+      if (response.status === 404 && !isLiveSite) {
+        setCounterText('0');
+        return;
       }
-      try { delete window[callbackName]; } catch (e) {}
-      if (script.parentNode) script.parentNode.removeChild(script);
-    };
-
-    script.async = true;
-    script.src = base + '?' + params.toString();
-    script.onerror = function () {
-      if (finished) return;
-      finished = true;
-      window.clearTimeout(timer);
+      if (!response.ok) throw new Error('counter HTTP ' + response.status);
+      var data = await response.json();
+      if (!data || data.value === undefined) throw new Error('counter response invalid');
+      setCounterText(formatCounter(data.value));
+      return;
+    } catch (fetchError) {
+      // Read-only JSONP fallback: never increments a second time.
+      try {
+        var fallback = await readOnlyJsonp(base + '/get/' + namespace + '/' + key);
+        if (fallback && fallback.value !== undefined) {
+          setCounterText(formatCounter(fallback.value));
+          return;
+        }
+      } catch (jsonpError) {}
       setCounterText('暫時無法讀取');
-      try { delete window[callbackName]; } catch (e) {}
-    };
-    document.head.appendChild(script);
+    }
   });
 })();

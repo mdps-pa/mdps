@@ -219,7 +219,7 @@ function checkBookingConflict(notify){
  if(!conflict)lastConflictKey='';
  return !conflict;
 }
-function validate(){const name=$('borrower').value;if(!/^[\p{Script=Han}A-Za-z]+$/u.test(name)||[...name].reduce((n,c)=>n+(/[A-Za-z]/.test(c)?1:2),0)>20){showError('借用人名稱僅可填中文或英文字母，最多10個中文字或20個英文字。','borrower');return false;}const reason=closedReason($('date').value);if(reason){$('dateError').textContent=reason;$('dateError').hidden=false;showError(reason,'date');return false;}
+function validate(){const name=$('borrower').value.trim();if(!name){showError('請具名填寫借用人姓名。','borrower');return false;}if([...name].length>20){showError('借用人姓名最多20個字元。','borrower');return false;}const reason=closedReason($('date').value);if(reason){$('dateError').textContent=reason;$('dateError').hidden=false;showError(reason,'date');return false;}
 if(!$('start').value||!$('end').value){showError('請選擇開始與結束時間。',!$('start').value?'start':'end');return false;}const s=minutes($('start').value),e=minutes($('end').value);if(s<480||e>960||s%30||e%30||e<=s||e-s>240){showError('請選擇08:00～16:00內的半小時時段，結束須晚於開始，且最多4小時。','end');return false;}
 if(!checkBookingConflict(true)){showError('該時段已被借用','start');return false;}
 if($('date').value===today()){const now=new Date(),parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Taipei',hour:'2-digit',minute:'2-digit',hour12:false}).format(now);if(s<=minutes(parts)){showError('請選擇尚未開始的時段。','start');return false;}}
