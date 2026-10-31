@@ -2275,3 +2275,8 @@ body.org-image-open{
     border-width:3px;
   }
 }
+
+/* v159 response records */
+.status.accepted{background:#e4f1e9;color:#2f6b55}
+.record-body.single{grid-template-columns:1fr}
+.record-id strong{color:var(--sage-deep)}
