@@ -251,3 +251,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// v167 latest-news expand/collapse
+document.addEventListener("DOMContentLoaded", function () {
+  const panel = document.getElementById("latestNewsPanel");
+  const button = document.getElementById("newsToggleBtn");
+  if (!panel || !button) return;
+
+  button.addEventListener("click", function () {
+    const expanded = panel.classList.toggle("expanded");
+    button.setAttribute("aria-expanded", expanded ? "true" : "false");
+    button.textContent = expanded ? "收合最新消息 ↑" : "展開全部最新消息 ↓";
+  });
+});
