@@ -2421,3 +2421,21 @@ button.news-item.news-pinned:hover{background:linear-gradient(135deg,#fff3df 0%,
   .anniversary-modal-dialog img{max-height:72vh;}
   .site-modal-close.anniversary-close{min-width:78px;font-size:14px;}
 }
+
+
+/* v170 latest-news full-year dates */
+.latest-news-panel .news-item{
+  grid-template-columns:112px 78px 1fr 18px;
+}
+@media(max-width:950px){
+  .latest-news-panel .news-item{grid-template-columns:104px 72px 1fr 16px;}
+}
+@media(max-width:620px){
+  .latest-news-panel .news-item{
+    grid-template-columns:94px 64px 1fr 14px;
+  }
+  .latest-news-panel .news-date{
+    font-size:12px;
+    white-space:nowrap;
+  }
+}
